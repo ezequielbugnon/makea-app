@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaView } from "react-native";
+import { Tabs } from "./src/navigator/Tabs";
+import LoginState from "./src/context/loginContext/loginState";
+import CatalogueState from "./src/context/catalogueContext/catalogueState";
+import Toast from "react-native-toast-message";
+
+const AppState = ({ children }) => {
+  return (
+    <LoginState>
+      <CatalogueState>{children}</CatalogueState>
+    </LoginState>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <AppState>
+        <NavigationContainer>
+          <Tabs />
+
+          <Toast position="bottom" />
+        </NavigationContainer>
+      </AppState>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
